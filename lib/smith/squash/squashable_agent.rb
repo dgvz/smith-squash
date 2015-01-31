@@ -8,10 +8,10 @@ module Smith
       # dying.
       def enable_squash
         if use_squash?
-          Squash::Ruby.configure(squash_config_options)
+          ::Squash::Ruby.configure(squash_config_options)
 
           on_exception do |exception|
-            Squash::Ruby.notify(exception)
+            ::Squash::Ruby.notify(exception)
           end
         end
       end
@@ -23,7 +23,7 @@ module Smith
       #   exception
       def squash_notify(error, additional_data = {})
         if use_squash?
-          Squash::Ruby.notify(exception)
+          ::Squash::Ruby.notify(exception)
         end
       end
 
