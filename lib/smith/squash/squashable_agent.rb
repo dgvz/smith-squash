@@ -11,7 +11,7 @@ module Smith
           ::Squash::Ruby.configure(squash_config_options)
 
           on_exception do |exception|
-            ::Squash::Ruby.notify(exception)
+            ::Squash::Ruby.notify(exception, :class => self.class)
           end
         end
       end
@@ -23,7 +23,7 @@ module Smith
       #   exception
       def squash_notify(error, additional_data = {})
         if use_squash?
-          ::Squash::Ruby.notify(exception)
+          ::Squash::Ruby.notify(exception, additional_data.merge(:class => self.class))
         end
       end
 
@@ -56,7 +56,7 @@ module Smith
           :environment => Smith.environment.to_s,
           :skip_ssl_verification => skip_ssl_verification?
         }
-        options.merge!(:revision_file_path => revision_file_path) if revision_file_path
+        options.merge!(:revision_file => revision_file_path) if revision_file_path
         options
       end
     end
