@@ -21,8 +21,19 @@ module Smith
       # @param error [Exception] the exception to notify squash about
       # @param additional_data [Hash] some additional meta data to send with the
       #   exception
-      def squash_notify(error, additional_data = {})
+      def squash_notify(exception, additional_data = {})
         if use_squash?
+
+          # Little hack since squash doesn't allow the sending of exceptions
+          # without a backtrace.
+          unless exception.backtrace
+            begin
+              raise exception
+            rescue ::Exception => ex
+              exception = ex
+            end
+          end
+
           ::Squash::Ruby.notify(exception, additional_data.merge(:class => self.class))
         end
       end
