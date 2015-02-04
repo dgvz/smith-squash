@@ -23,6 +23,7 @@ module Smith
       #   exception
       def squash_notify(exception, additional_data = {})
         if use_squash?
+          ::Squash::Ruby.configure(squash_config_options)
 
           # Little hack since squash doesn't allow the sending of exceptions
           # without a backtrace.
