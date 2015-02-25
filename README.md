@@ -50,7 +50,7 @@ end
 
 Or if you want to send specific errors to squash you can do:
 
-```
+```ruby
 require 'smith/squash/squashable_agent'
 
 class MyAgent < Smith::Agent
